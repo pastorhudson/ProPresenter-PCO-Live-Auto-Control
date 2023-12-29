@@ -28,32 +28,19 @@ jobs:
     - name: Build with PyInstaller
       run: pyinstaller --onefile ./src/PcoLive.py  # Replace with your build command
 
+    - name: Create Release Version
+      uses: CupOfTea696/gh-action-auto-release@v1.0.0
+      with:
+        title: "Release: $version"
+        tag: "v$semver"
+        draft: false
+        regex: "/^Release: #{semver}$/i"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
     - name: Upload Artifacts
       uses: actions/upload-artifact@v2
       with:
         name: ${{ runner.os }}-build
         path: dist/*  # Adjust the path according to your build output
-
-    - name: Create GitHub Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ env.RELEASE_VERSION }}
-        release_name: Release ${{ env.RELEASE_VERSION }}
-        draft: false
-        prerelease: false
-
-    - name: Upload Executable to Release
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./path/to/PcoLive.exe
-        asset_name: PcoLive.exe
-        asset_content_type: application/octet-stream
-
-
 
