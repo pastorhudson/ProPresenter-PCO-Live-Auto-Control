@@ -1,0 +1,141 @@
+import asyncio
+from pprint import pprint
+
+from pypco import PCORequestException
+
+from ProPresenter import get_current_index
+from utils import get_pco
+
+
+def choose_live():
+    """
+    Configure Service Plan
+
+    :param pco: The PCO object used to access the API.
+    :return: A dictionary containing the selected plan ID and selected service type ID.
+
+    This method interacts with the PCO object to select a service type and plan.
+    It prompts the user to select a service type from a list, then displays the list of plans for the selected service type.
+    The user is prompted again to select a plan from the list.
+    The method then returns a dictionary with the selected plan ID and selected service type ID.
+
+    Example usage:
+        pco = PCO()
+        config(pco)
+    """
+    pco = get_pco()
+    service_type_list = []
+    service_types = pco.iterate("/services/v2/service_types")
+    for service_type in service_types:
+        service_type_list.append((service_type['data']["id"], service_type['data']['attributes']["name"]))
+    for i, (service_type_id, service_type_name) in enumerate(service_type_list):
+        print(f"{i+1}. {service_type_name}")
+
+    service_type_number = int(input("Select the service type by entering a number: "))
+    selected_service_type_id = service_type_list[service_type_number-1][0]
+    print(f"Selected service type id is {selected_service_type_id}")
+
+    plans_list = []
+
+    plans = pco.iterate(f"/services/v2/service_types/{selected_service_type_id}/plans?filter=future")
+    for plan in plans:
+        if plan['data']['attributes']["title"]:
+            plans_list.append((plan['data']["id"], f'{plan['data']['attributes']["title"]} - {plan['data']['attributes']["dates"]}'))
+        else:
+            plans_list.append((plan['data']["id"], plan['data']['attributes']["dates"]))
+
+    for i, (plan_id, plan_name) in enumerate(plans_list):
+        print(f"{i+1}. {plan_name}")
+
+    plan_number = int(input("Select the plan by entering a number: "))
+    selected_plan_id = plans_list[plan_number-1][0]
+    print(f"Selected plan id is {selected_plan_id}")
+
+    return {"plan_id": selected_plan_id,
+            "service_type_id": selected_service_type_id}
+
+
+def get_current_set_list(service_type_id, plan_id, display=False):
+    pco = get_pco()
+    live_data = pco.get(f"/services/v2/service_types/{service_type_id}/plans/{plan_id}/live?"
+                        f"include=items,controller,next_item_time")
+    if display:
+        # pprint(live_data["included"])
+        if live_data["data"]['attributes']['title']:
+            print(f" - {live_data["data"]['attributes']['title']}")
+        print("\n")
+        for item in live_data["included"]:
+            if item['type'] == 'Item':
+
+                print(f"{item['attributes']['sequence'] - 1} - {item['attributes']['title']}")
+
+
+def get_current_live_status(service_type_id, plan_id, display=False):
+    pco = get_pco()
+
+    current_item = pco.get(f"/services/v2/service_types/{service_type_id}/plans/"
+                           f"{plan_id}/live/?include=current_item_time,items")
+    if not current_item["data"]['links']['controller']:
+        """We need to take control if the service hasn't started"""
+        pco.post(f"/services/v2/service_types/{service_type_id}/plans/{plan_id}/live/toggle_control")
+        pco.post(f'/services/v2/service_types/{service_type_id}/plans/{plan_id}/live/go_to_next_item')
+
+        current_item = pco.get(f"/services/v2/service_types/{service_type_id}/plans/"
+                               f"{plan_id}/live/?include=current_item_time,items")
+
+    item_id = None
+    item_name = None
+    sequence = None
+
+    for include in current_item['included']:
+        if include['type'] == 'ItemTime':
+            item_id = include['relationships']['item']['data']['id']
+        if include['type'] == 'Item' and include['id'] == item_id:
+            sequence = include['attributes']['sequence'] - 1
+            item_name = include['attributes']['title']
+
+
+    live_status = {
+        "title": current_item["data"]['attributes']['title'],
+        "date": current_item["data"]['attributes']['dates'],
+        "sequence": sequence,
+        "item_name": item_name
+    }
+    if display:
+        print("Current PCO Item Status:\n")
+        for stat, data in live_status.items():
+            print(f"{stat}: {data}")
+        # pprint(live_status)
+
+    return live_status
+
+
+def get_index(service_type_id, plan_id):
+    pco = get_pco()
+    index = 0
+    while True:
+        pco_live_status = get_current_live_status(service_type_id, plan_id)
+        pro_presenter_status = asyncio.run(get_current_index())
+        if pro_presenter_status:
+
+            if pco_live_status["sequence"] == pro_presenter_status['sequence'] and pco_live_status["date"] == pro_presenter_status['date']:
+                print("PCO and ProPresenter are in sync.")
+            else:
+                print("PCO and ProPresenter are not in sync.")
+                print(f"PCO: {pco_live_status['sequence']}, ProPresenter: {pro_presenter_status['sequence']}")
+                index = pro_presenter_status['sequence'] - pco_live_status['sequence']
+                if index < 0:
+                    print(f"{pro_presenter_status['sequence'] - pco_live_status['sequence']} - Click Back")
+                    pco.post(f'/services/v2/service_types/{service_type_id}/plans/{plan_id}/live/go_to_previous_item')
+                else:
+                    print(f"{pro_presenter_status['sequence'] - pco_live_status['sequence']} - Click Forward")
+                    pco.post(f'/services/v2/service_types/{service_type_id}/plans/{plan_id}/live/go_to_next_item')
+                # print(pro_presenter_status['sequence'] - pco_live_status['sequence'])
+
+        else:
+            print("Pro Presenter isn't running")
+
+
+if __name__ == '__main__':
+    config = choose_live()
+    get_index(config['service_type_id'], config['plan_id'])
