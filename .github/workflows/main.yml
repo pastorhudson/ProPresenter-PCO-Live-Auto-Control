@@ -28,7 +28,7 @@ jobs:
         pip install pyinstaller
 
     - name: Build with PyInstaller
-      run: pyinstaller --onefile ./src/PcoLive.py
+      run: pyinstaller --onefile ./src/main.py
 
 #    - name: Test Windows Executable
 #      if: matrix.os == 'windows-latest'
@@ -39,19 +39,22 @@ jobs:
     - name: Package Windows Artifact
       if: matrix.os == 'windows-latest'
       run: |
-        Compress-Archive -Path dist/PcoLive.exe -DestinationPath PcoLive-windows.zip
+        mv dist/main.exe ./PcoLive.exe
+        Compress-Archive -Path ./PcoLive.exe -DestinationPath PcoLive-windows.zip
       working-directory: ${{github.workspace}}
 
     - name: Package macOS Artifact
       if: matrix.os == 'macos-latest'
       run: |
-        zip -r PcoLive-macOS.zip dist/PcoLive
+        mv dist/main ./PcoLive
+        zip -r PcoLive-macOS.zip ./PcoLive
       working-directory: ${{github.workspace}}
 
     - name: Package Linux Artifact
       if: matrix.os == 'ubuntu-20.04'
       run: |
-        tar -czvf PcoLive-Linux.tar.gz -C dist/ PcoLive
+        mv dist/main ./PcoLive
+        tar -czvf PcoLive-Linux.tar.gz -C ./PcoLive
       working-directory: ${{github.workspace}}
 
     - name: Upload Artifact

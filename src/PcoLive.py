@@ -37,7 +37,7 @@ def choose_live(service_type_id=None, plan_id=None):
 
     service_type_number = int(input("Select the service type by entering a number: "))
     selected_service_type_id = service_type_list[service_type_number - 1][0]
-    print(f"Selected service type id is {selected_service_type_id}")
+    logger.info(f"Selected service type id is {selected_service_type_id}")
 
     plans_list = []
 
