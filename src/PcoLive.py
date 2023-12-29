@@ -52,7 +52,7 @@ def choose_live():
     for plan in plans:
         if plan['data']['attributes']["title"]:
             plans_list.append((plan['data']["id"],
-                               f'{plan['data']['attributes']["title"]} - {plan['data']['attributes']["dates"]}'))
+                               f'{plan["data"]["attributes"]["title"]} - {plan["data"]["attributes"]["dates"]}'))
         else:
             plans_list.append((plan['data']["id"], plan['data']['attributes']["dates"]))
 
