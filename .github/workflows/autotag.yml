@@ -3,7 +3,7 @@ name: Auto Tag
 on:
   push:
     branches:
-      - main  # Replace with your default branch
+      - main  # Trigger on pushes to the main branch
 
 jobs:
   tag:
@@ -11,15 +11,9 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-      
-    - name: Bump version and push tag
-      uses: anothrNick/github-tag-action@1.26.0
+
+    - name: Auto Bump Version
+      uses: mathieudutour/github-tag-action@v5.6
       with:
-        release_branches: main
-        default_bump: patch
-        tag_prefix: "v"
-        major_pattern: 'major:'
-        minor_pattern: 'minor:'
-        patch_pattern: 'patch:'
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        create_annotated_tag: true
