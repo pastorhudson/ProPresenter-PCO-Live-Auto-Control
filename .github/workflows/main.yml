@@ -29,7 +29,7 @@ jobs:
 
     - name: Build with PyInstaller for macOS
       if: matrix.os == 'macos-latest'
-      run: pyinstaller --onefile --add-binary='/opt/local/lib/libintl.8.dylib:.' ./src/main.py
+      run: pyinstaller --onefile --add-binary='/usr/local/libodep/lib/libintl.8.dylib:.' ./src/main.py
 
     - name: Build with PyInstaller for Windows and Linux
       if: matrix.os != 'macos-latest'
@@ -37,6 +37,11 @@ jobs:
 
     - name: Test Windows Executable
       if: matrix.os == 'windows-latest'
+      run: dist\main.exe -t
+      timeout-minutes: 2  # Set an appropriate timeout
+
+    - name: Test Linux Executable
+      if: matrix.os == 'ubuntu-20.04'
       run: dist\main.exe -t
       timeout-minutes: 2  # Set an appropriate timeout
 
