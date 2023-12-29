@@ -42,7 +42,7 @@ jobs:
 
     - name: Test Linux Executable
       if: matrix.os == 'ubuntu-20.04'
-      run: dist\main.exe -t
+      run: dist\main -t
       timeout-minutes: 2  # Set an appropriate timeout
 
     - name: Package Windows Artifact
