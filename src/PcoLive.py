@@ -11,25 +11,18 @@ def exit_handler(service_type_id, plan_id):
     logger.info("Releasing Control")
 
 
-logger = setup_logger("PCO Live Sync")
+logger = setup_logger(__name__)
 
 
-def choose_live():
+def choose_live(service_type_id=None, plan_id=None):
     """
-    Configure Service Plan
-
-    :param pco: The PCO object used to access the API.
-    :return: A dictionary containing the selected plan ID and selected service type ID.
-
-    This method interacts with the PCO object to select a service type and plan.
-    It prompts the user to select a service type from a list, then displays the list of plans for the selected service type.
-    The user is prompted again to select a plan from the list.
-    The method then returns a dictionary with the selected plan ID and selected service type ID.
-
-    Example usage:
-        pco = PCO()
-        config(pco)
+    :param service_type_id: str, Optional. The ID of the service type.
+    :param plan_id: str, Optional. The ID of the plan.
+    :return: dict. A dictionary with the selected service type ID and plan ID.
     """
+    if service_type_id and plan_id:
+        return {"plan_id": plan_id, "service_type_id": service_type_id}
+
     try:
         pco = get_pco()
     except Exception as e:
@@ -154,12 +147,10 @@ def get_index(service_type_id, plan_id):
             logger.info("Pro Presenter is Clear")
 
 
-if __name__ == '__main__':
-    try:
-        config = choose_live()
-        atexit.register(exit_handler, config['service_type_id'], config['plan_id'])
-        # print(config)
-        get_index(config['service_type_id'], config['plan_id'])
-        # get_index('173868', "69508886")
-    except KeyboardInterrupt:
-        logger.info("Thanks for using this recipe. Check out more recipes at https://pcochef.com")
+# if __name__ == '__main__':
+#     try:
+#         config = choose_live()
+#         atexit.register(exit_handler, config['service_type_id'], config['plan_id'])
+#         get_index(config['service_type_id'], config['plan_id'])
+#     except KeyboardInterrupt:
+#         logger.info("Thanks for using this recipe. Check out more recipes at https://pcochef.com")
