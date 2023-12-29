@@ -26,3 +26,4 @@ All notable changes to this project will be documented in this file.
 ## v1.1.0
 ### Changes
  - Added Mac build targeting python 3.8.10
+ - Added rudimentary test on build to ensure the binary works before triggering a release
