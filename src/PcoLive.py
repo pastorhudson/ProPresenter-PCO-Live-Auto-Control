@@ -14,15 +14,7 @@ def exit_handler(service_type_id, plan_id):
 logger = setup_logger(__name__)
 
 
-def choose_live(service_type_id=None, plan_id=None):
-    """
-    :param service_type_id: str, Optional. The ID of the service type.
-    :param plan_id: str, Optional. The ID of the plan.
-    :return: dict. A dictionary with the selected service type ID and plan ID.
-    """
-    if service_type_id and plan_id:
-        return {"plan_id": plan_id, "service_type_id": service_type_id}
-
+def pick_service_type():
     try:
         pco = get_pco()
     except Exception as e:
@@ -38,10 +30,18 @@ def choose_live(service_type_id=None, plan_id=None):
     service_type_number = int(input("Select the service type by entering a number: "))
     selected_service_type_id = service_type_list[service_type_number - 1][0]
     logger.info(f"Selected service type id is {selected_service_type_id}")
+    return selected_service_type_id
 
+
+def pick_plan_id(service_type_id):
+    try:
+        pco = get_pco()
+    except Exception as e:
+        logger.error(e)
+        sys.exit()
     plans_list = []
 
-    plans = pco.iterate(f"/services/v2/service_types/{selected_service_type_id}/plans?filter=future")
+    plans = pco.iterate(f"/services/v2/service_types/{service_type_id}/plans?filter=future")
     for plan in plans:
         if plan['data']['attributes']["title"]:
             plans_list.append((plan['data']["id"],
@@ -56,8 +56,25 @@ def choose_live(service_type_id=None, plan_id=None):
     selected_plan_id = plans_list[plan_number - 1][0]
     logger.info(f"Selected plan id is {selected_plan_id}")
 
+    return selected_plan_id
+
+
+def choose_live(service_type_id=None, plan_id=None):
+    """
+    :param service_type_id: str, Optional. The ID of the service type.
+    :param plan_id: str, Optional. The ID of the plan.
+    :return: dict. A dictionary with the selected service type ID and plan ID.
+    """
+    if service_type_id and plan_id:
+        return {"plan_id": plan_id, "service_type_id": service_type_id}
+    elif service_type_id:
+        selected_plan_id = pick_plan_id(service_type_id)
+    else:
+        service_type_id = pick_service_type()
+        selected_plan_id = pick_plan_id(service_type_id)
+
     return {"plan_id": selected_plan_id,
-            "service_type_id": selected_service_type_id}
+            "service_type_id": service_type_id}
 
 
 def get_current_set_list(service_type_id, plan_id, display=False):

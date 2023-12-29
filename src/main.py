@@ -22,6 +22,10 @@ def main():
             config = choose_live(args.service_type_id, args.plan_id)
             atexit.register(exit_handler, config['service_type_id'], config['plan_id'])
             get_index(config['service_type_id'], config['plan_id'])
+        elif args.service_type_id:
+            config = choose_live(args.service_type_id)
+            atexit.register(exit_handler, config['service_type_id'], config['plan_id'])
+            get_index(config['service_type_id'], config['plan_id'])
 
         else:
             config = choose_live()
