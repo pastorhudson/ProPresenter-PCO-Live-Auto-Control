@@ -103,6 +103,7 @@ jobs:
             PcoLive-Linux.tar.gz
 
   release:
+    if: contains(github.event.head_commit.message, 'Release: ')
     environment: ProPresenter PCO Live
     permissions:
       contents: write
