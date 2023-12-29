@@ -79,7 +79,7 @@ jobs:
         path: artifacts
 
     - name: List build artifacts
-      run: ls -l artifacts/artifact-windows-latest
+      run: ls -l artifacts/artifact-windows-latest/dist
 
 
     - name: Unzip Windows Artifact
