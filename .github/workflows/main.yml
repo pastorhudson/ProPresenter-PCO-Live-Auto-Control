@@ -29,7 +29,7 @@ jobs:
       run: pyinstaller --onefile ./src/PcoLive.py  # Replace with your build command
 
     - name: Create Release Version
-      uses: CupOfTea696/gh-action-auto-release@v1.0.0
+      uses: CupOfTea696/gh-action-auto-release@v1.0.2
       with:
         title: "Release: $version"
         tag: "v$semver"
