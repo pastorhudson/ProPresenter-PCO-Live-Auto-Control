@@ -65,7 +65,7 @@ jobs:
         title: "Release: $version"
         tag: "v$semver"
         draft: false
-        regex: (?<version>(?<prefix>v?)(?<semver>(?<major>0|[1-9]\d*)\.(?<minor>0|[1-9]\d*)\.(?<patch>0|[1-9]\d*)(?:-(?<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?<build>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?))
+        regex: (?<=^|[^a-zA-Z0-9.+-])#{semver}(?=[^a-zA-Z0-9.+-]|$)
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
