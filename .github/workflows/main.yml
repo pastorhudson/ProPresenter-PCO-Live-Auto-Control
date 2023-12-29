@@ -29,6 +29,12 @@ jobs:
     - name: Build with PyInstaller
       run: pyinstaller --onefile ./src/PcoLive.py
 
+    - name: Package windows Artifact
+      if: matrix.os == 'windows-latest'
+      run: |
+        zip -r PcoLive-windows.zip dist/PcoLive.exe
+      working-directory: ${{github.workspace}}
+
     - name: Package macOS Artifact
       if: matrix.os == 'macos-latest'
       run: |
@@ -46,7 +52,7 @@ jobs:
       with:
         name: artifact-${{ matrix.os }}
         path: |
-          dist/PcoLive.exe
+          PcoLive-windows.zip
           PcoLive-macOS.zip
           PcoLive-Linux.tar.gz
 
@@ -79,7 +85,7 @@ jobs:
         path: artifacts
 
     - name: List build artifacts
-      run: ls -l artifacts/artifact-windows-latest/dist
+      run: ls -l artifacts/
 
 
     - name: Upload Windows Artifact to Release
