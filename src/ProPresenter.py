@@ -50,5 +50,5 @@ async def get_current_index():
         return None
 
 
-if __name__ == "__main__":
-    print(asyncio.run(get_current_index()))
+# if __name__ == "__main__":
+#     print(asyncio.run(get_current_index()))
