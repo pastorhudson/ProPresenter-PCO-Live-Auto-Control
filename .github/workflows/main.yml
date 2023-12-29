@@ -65,7 +65,7 @@ jobs:
         title: "Release: $version"
         tag: "v$semver"
         draft: false
-        regex: "(?<=^|[^a-zA-Z0-9.+-])#{semver}(?=[^a-zA-Z0-9.+-]|$)"
+        regex: "/^Release: #{semver}$/i"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
