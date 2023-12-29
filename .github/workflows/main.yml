@@ -30,6 +30,12 @@ jobs:
     - name: Build with PyInstaller
       run: pyinstaller --onefile ./src/PcoLive.py
 
+    - name: Test Windows Executable
+      if: matrix.os == 'windows-latest'
+      run: dist\PcoLive.exe
+      timeout-minutes: 2  # Set an appropriate timeout
+
+
     - name: Package Windows Artifact
       if: matrix.os == 'windows-latest'
       run: |
@@ -43,7 +49,7 @@ jobs:
       working-directory: ${{github.workspace}}
 
     - name: Package Linux Artifact
-      if: matrix.os == 'ubuntu-latest'
+      if: matrix.os == 'ubuntu-20.04'
       run: |
         tar -czvf PcoLive-Linux.tar.gz -C dist/ PcoLive
       working-directory: ${{github.workspace}}
@@ -62,7 +68,7 @@ jobs:
     permissions:
       contents: write
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
     - name: Download Artifacts
       uses: actions/download-artifact@v2
@@ -115,6 +121,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.MY_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./artifacts/artifact-ubuntu-latest/PcoLive-Linux.tar.gz
+        asset_path: ./artifacts/artifact-ubuntu-20.04/PcoLive-Linux.tar.gz
         asset_name: PcoLive-Linux.tar.gz
         asset_content_type: application/gzip
