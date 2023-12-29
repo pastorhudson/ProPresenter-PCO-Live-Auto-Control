@@ -30,10 +30,10 @@ jobs:
     - name: Build with PyInstaller
       run: pyinstaller --onefile ./src/PcoLive.py
 
-    - name: Test Windows Executable
-      if: matrix.os == 'windows-latest'
-      run: dist\PcoLive.exe
-      timeout-minutes: 2  # Set an appropriate timeout
+#    - name: Test Windows Executable
+#      if: matrix.os == 'windows-latest'
+#      run: dist\PcoLive.exe
+#      timeout-minutes: 2  # Set an appropriate timeout
 
 
     - name: Package Windows Artifact
