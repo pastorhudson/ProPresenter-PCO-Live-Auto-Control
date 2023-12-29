@@ -19,7 +19,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: '3.11'
+        python-version: '3.10'
 
     - name: Install Dependencies
       run: |
@@ -29,10 +29,10 @@ jobs:
     - name: Build with PyInstaller
       run: pyinstaller --onefile ./src/PcoLive.py
 
-    - name: Package windows Artifact
+    - name: Package Windows Artifact
       if: matrix.os == 'windows-latest'
       run: |
-        zip -r PcoLive-windows.zip dist/PcoLive.exe
+        Compress-Archive -Path dist/PcoLive.exe -DestinationPath PcoLive-windows.zip
       working-directory: ${{github.workspace}}
 
     - name: Package macOS Artifact
