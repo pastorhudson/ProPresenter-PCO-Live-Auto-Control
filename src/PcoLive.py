@@ -40,10 +40,10 @@ def choose_live():
     for service_type in service_types:
         service_type_list.append((service_type['data']["id"], service_type['data']['attributes']["name"]))
     for i, (service_type_id, service_type_name) in enumerate(service_type_list):
-        print(f"{i+1}. {service_type_name}")
+        print(f"{i + 1}. {service_type_name}")
 
     service_type_number = int(input("Select the service type by entering a number: "))
-    selected_service_type_id = service_type_list[service_type_number-1][0]
+    selected_service_type_id = service_type_list[service_type_number - 1][0]
     print(f"Selected service type id is {selected_service_type_id}")
 
     plans_list = []
@@ -57,10 +57,10 @@ def choose_live():
             plans_list.append((plan['data']["id"], plan['data']['attributes']["dates"]))
 
     for i, (plan_id, plan_name) in enumerate(plans_list):
-        print(f"{i+1}. {plan_name}")
+        print(f"{i + 1}. {plan_name}")
 
     plan_number = int(input("Select the plan by entering a number: "))
-    selected_plan_id = plans_list[plan_number-1][0]
+    selected_plan_id = plans_list[plan_number - 1][0]
     logger.info(f"Selected plan id is {selected_plan_id}")
 
     return {"plan_id": selected_plan_id,
@@ -74,7 +74,7 @@ def get_current_set_list(service_type_id, plan_id, display=False):
     if display:
         # pprint(live_data["included"])
         if live_data["data"]['attributes']['title']:
-            logger.info(f" - {live_data["data"]['attributes']['title']}")
+            logger.info(f" - {live_data['data']['attributes']['title']}")
         for item in live_data["included"]:
             if item['type'] == 'Item':
                 logger.info(f"{item['attributes']['sequence'] - 1} - {item['attributes']['title']}")
@@ -100,12 +100,11 @@ def get_current_live_status(service_type_id, plan_id, display=False):
         for include in current_item['included']:
             # pprint(include)
 
-                if include['type'] == 'ItemTime':
-                    item_id = include['relationships']['item']['data']['id']
-                if include['type'] == 'Item' and include['id'] == item_id:
-                    sequence = include['attributes']['sequence'] - 1
-                    item_name = include['attributes']['title']
-
+            if include['type'] == 'ItemTime':
+                item_id = include['relationships']['item']['data']['id']
+            if include['type'] == 'Item' and include['id'] == item_id:
+                sequence = include['attributes']['sequence'] - 1
+                item_name = include['attributes']['title']
 
         live_status = {
             "title": current_item["data"]['attributes']['title'],
@@ -133,7 +132,8 @@ def get_index(service_type_id, plan_id):
         pro_presenter_status = asyncio.run(get_current_index())
         if pro_presenter_status:
 
-            if pco_live_status["sequence"] == pro_presenter_status['sequence'] and pco_live_status["date"] == pro_presenter_status['date']:
+            if pco_live_status["sequence"] == pro_presenter_status['sequence'] and pco_live_status["date"] == \
+                    pro_presenter_status['date']:
                 logger.info("PCO and ProPresenter are in sync.")
             else:
                 logger.info("PCO and ProPresenter are not in sync.")
@@ -157,7 +157,7 @@ def get_index(service_type_id, plan_id):
 if __name__ == '__main__':
     try:
         config = choose_live()
-        atexit.register(exit_handler,config['service_type_id'], config['plan_id'])
+        atexit.register(exit_handler, config['service_type_id'], config['plan_id'])
         # print(config)
         get_index(config['service_type_id'], config['plan_id'])
         # get_index('173868', "69508886")
