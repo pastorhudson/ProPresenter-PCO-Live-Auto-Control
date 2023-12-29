@@ -1,4 +1,4 @@
-
+[![Build and Release](https://github.com/pastorhudson/ProPresenter-PCO-Live-Auto-Control/actions/workflows/main.yml/badge.svg?event=status)](https://github.com/pastorhudson/ProPresenter-PCO-Live-Auto-Control/actions/workflows/main.yml)
 # ProPresenter-PCO-Live-Auto-Control
 Auto advance Planning Center Services Live based on ProPresenter action
 
