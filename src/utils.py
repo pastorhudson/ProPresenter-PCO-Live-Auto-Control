@@ -33,7 +33,7 @@ def setup_logger(logger_name):
 
     # Create a file handler and set level to debug
     date = datetime.now().strftime('%Y-%m-%d')
-    fh = logging.FileHandler(f'{date}.log')
+    fh = logging.FileHandler(f'{date}-log.txt')
 
     # Create a standard formatter for the file
     file_formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
