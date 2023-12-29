@@ -1,4 +1,6 @@
-[![Build and Release](https://github.com/pastorhudson/ProPresenter-PCO-Live-Auto-Control/actions/workflows/main.yml/badge.svg)](https://github.com/pastorhudson/ProPresenter-PCO-Live-Auto-Control/actions/workflows/main.yml)
+![Ubuntu Build](https://github.com/pastorhudson/ProPresenter-PCO-Live-Auto-Control/actions/workflows/main.yml/badge.svg?branch=main&event=workflow_dispatch&label=ubuntu-build)
+![Windows Build](https://github.com/pastorhudson/ProPresenter-PCO-Live-Auto-Control/actions/workflows/main.yml/badge.svg?branch=main&event=workflow_dispatch&label=windows-build)
+![macOS Build](https://github.com/pastorhudson/ProPresenter-PCO-Live-Auto-Control/actions/workflows/main.yml/badge.svg?branch=main&event=workflow_dispatch&label=macos-build)
 # ProPresenter-PCO-Live-Auto-Control
 Auto advance Planning Center Services Live based on ProPresenter action
 

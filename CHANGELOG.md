@@ -34,7 +34,3 @@ All notable changes to this project will be documented in this file.
  - This is tested and working on Ventura 13.5 on M2 mac.
  - Note: OSx will complain when you download the zip. You have to right-click `PcoLive` and select `open` the first time you run it.
  - Changed the log file from .log to .txt for clarity
-
-## v1.1.2
-### Changes
-- Test
