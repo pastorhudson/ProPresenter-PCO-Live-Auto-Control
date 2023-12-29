@@ -31,7 +31,7 @@ jobs:
     - name: Package macOS Artifact
       if: matrix.os == 'macos-latest'
       run: |
-        zip -r PcoLive-macOS.zip dist/PcoLive.app
+        zip -r PcoLive-macOS.zip dist/PcoLive
       working-directory: ${{github.workspace}}
 
     - name: Package Linux Artifact
