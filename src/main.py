@@ -2,6 +2,7 @@ import argparse
 import atexit
 from PcoLive import choose_live, exit_handler, get_index
 from utils import setup_logger
+from pypco.exceptions import PCORequestException
 
 
 def main():
@@ -16,20 +17,21 @@ def main():
     if args.test:
         print("SUCCESS")
         return
-    if args.service_type_id and args.plan_id:
-        try:
+    try:
+        if args.service_type_id and args.plan_id:
             config = choose_live(args.service_type_id, args.plan_id)
             atexit.register(exit_handler, config['service_type_id'], config['plan_id'])
             get_index(config['service_type_id'], config['plan_id'])
-        except KeyboardInterrupt:
-            logger.info("Thanks for using this recipe. Check out more recipes at https://pcochef.com")
-    else:
-        try:
+
+        else:
             config = choose_live()
             atexit.register(exit_handler, config['service_type_id'], config['plan_id'])
             get_index(config['service_type_id'], config['plan_id'])
-        except KeyboardInterrupt:
-            logger.info("Thanks for using this recipe. Check out more recipes at https://pcochef.com")
+    except KeyboardInterrupt:
+        logger.info("Thanks for using this recipe. Check out more recipes at https://pcochef.com")
+    except PCORequestException:
+        logger.error("Please Check your Planning Center API keys are correct in the config.ini")
+
 
 
 if __name__ == "__main__":

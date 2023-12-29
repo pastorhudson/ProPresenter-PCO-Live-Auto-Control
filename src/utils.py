@@ -44,29 +44,6 @@ def setup_logger(logger_name):
     logger.addHandler(fh)
 
     return logger
-# def setup_logger(logger_name):
-#     # Create a logger
-#     logger = logging.getLogger(logger_name)
-#     logger.setLevel(logging.INFO)
-#
-#     # Create a formatter
-#     formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-#
-#     # Create a console handler
-#     ch = logging.StreamHandler()
-#     ch.setFormatter(formatter)
-#
-#     # Add the console handler to the logger
-#     logger.addHandler(ch)
-#
-#     # Create a file handler and set level to debug
-#     date = datetime.now().strftime('%Y-%m-%d')
-#     fh = logging.FileHandler(f'{date}.log')
-#     fh.setFormatter(formatter)
-#
-#     # Add fh to logger
-#     logger.addHandler(fh)
-#     return logger
 
 
 logger = setup_logger(__name__)

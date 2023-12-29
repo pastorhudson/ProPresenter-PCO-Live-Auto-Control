@@ -16,3 +16,7 @@ All notable changes to this project will be documented in this file.
  - If you click on the service type in the top right of the plan screen then the service_type_id will be in the url.
  - You can also run the program and select the service type and plan and the corresponding ID's will be shown.
  - The service type will probably stay the same from week to week, but the plan_id will always change.
+
+## v1.0.2
+### Changes
+ - Added descriptive error when the Planning Center API keys are not working.
