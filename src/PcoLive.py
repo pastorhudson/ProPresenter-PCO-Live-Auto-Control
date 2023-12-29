@@ -51,7 +51,8 @@ def choose_live():
     plans = pco.iterate(f"/services/v2/service_types/{selected_service_type_id}/plans?filter=future")
     for plan in plans:
         if plan['data']['attributes']["title"]:
-            plans_list.append((plan['data']["id"], f'{plan['data']['attributes']["title"]} - {plan['data']['attributes']["dates"]}'))
+            plans_list.append((plan['data']["id"],
+                               f'{plan['data']['attributes']["title"]} - {plan['data']['attributes']["dates"]}'))
         else:
             plans_list.append((plan['data']["id"], plan['data']['attributes']["dates"]))
 
