@@ -50,6 +50,8 @@ jobs:
           PcoLive-Linux.tar.gz
 
   release:
+    permissions:
+      contents: write
     needs: build
     runs-on: ubuntu-latest
     steps:
@@ -67,7 +69,7 @@ jobs:
         draft: false
         regex: "/^Release: #{semver}$/i"
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.MY_TOKEN }}
 
     - name: Upload Windows Artifact to Release
       uses: actions/upload-release-asset@v1
