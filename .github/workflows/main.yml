@@ -17,7 +17,7 @@ jobs:
           - os: windows-latest
             python-version: '3.12'
           - os: macos-latest
-            python-version: '3.10'
+            python-version: '3.12'
 
     steps:
       - uses: actions/checkout@v2
@@ -37,7 +37,6 @@ jobs:
       - name: Build with PyInstaller for macOS
         if: matrix.os == 'macos-latest'
         run: |
-          find /opt/ -name 'libintl.8.dylib'
           pyinstaller --onefile ./src/main.py
 
       - name: Build with PyInstaller for Windows and Linux
