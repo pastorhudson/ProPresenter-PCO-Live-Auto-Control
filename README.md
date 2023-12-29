@@ -7,6 +7,10 @@ Pro Presenter has the ability to display Planning Center Live, but you have to m
 
 This script watches ProPresenter and automatically advances Planning Center Live status when the item is changed in ProPresenter.
 
+### Demo Video
+[![Watch the video](https://img.youtube.com/vi/gBEsyNlXMsg/0.jpg)](https://www.youtube.com/watch?v=gBEsyNlXMsg)
+
+
 ### Download
 - #### The latest download is always [here](https://github.com/pastorhudson/ProPresenter-PCO-Live-Auto-Control/releases/latest)
 - #### You can see the changelog [here](https://github.com/pastorhudson/ProPresenter-PCO-Live-Auto-Control/blob/v1.1.2/CHANGELOG.md)
