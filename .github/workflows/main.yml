@@ -54,6 +54,11 @@ jobs:
         run: dist/main -t
         timeout-minutes: 2  # Set an appropriate timeout
 
+      - name: Test Mac Executable
+        if: matrix.os == 'macos-latest'
+        run: dist/main -t
+        timeout-minutes: 2  # Set an appropriate timeout
+
       - name: Package Windows Artifact
         if: matrix.os == 'windows-latest'
         run: |
