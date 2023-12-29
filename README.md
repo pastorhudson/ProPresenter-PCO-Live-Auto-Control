@@ -3,7 +3,7 @@
 ### What is this?
 Planning Center Services has a feature called "Live". This feature lets you click through the items in the plan and the production team can see where they are at in the service flow.
 If you use Planning Center Services Live then it will record the actual times on songs and items so next time you use them they will be accurate.
-Pro Presenter has the ability to disply Planning Center Live, but you have to manually click next everytime you change songs or slides. This is tedious.
+Pro Presenter has the ability to display Planning Center Live, but you have to manually click next everytime you change songs or slides. This is tedious.
 
 This script watches ProPresenter and automatically advances Planning Center Live status when the item is changed in ProPresenter.
 
@@ -97,4 +97,4 @@ PcoLive [options]
 
 ### About Me
 
-I'm a pastor in south west PA who likes to build stuff. I run a website called https://pcochef.com full of "recipes for doing ministry" with Planning Center.
+I'm a pastor in south-west PA who likes to build stuff. I run a website called https://pcochef.com full of "recipes for doing ministry" with Planning Center.
