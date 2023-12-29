@@ -28,7 +28,14 @@ jobs:
         pip install pyinstaller
 
     - name: Build with PyInstaller
-      run: pyinstaller --onefile ./src/main.py
+      run: |
+        ${{ if eq(matrix.os, 'macos-latest') }}
+        pyinstaller --onefile --add-binary='/opt/local/lib/libintl.8.dylib:.' ./src/main.py
+        ${{ else }}
+        pyinstaller --onefile ./src/main.py
+        ${{ endif }}
+
+        
 
 #    - name: Test Windows Executable
 #      if: matrix.os == 'windows-latest'

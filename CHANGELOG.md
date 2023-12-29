@@ -22,3 +22,7 @@ All notable changes to this project will be documented in this file.
  - Added descriptive error when the Planning Center API keys are not working.
  - Added Readme, Liscence, and Changelog to the release downloads
  - Changed folder from dist to PcoLive for the release archives
+
+## v1.1.0
+### Changes
+ - Added Mac build targeting python 3.8.10
