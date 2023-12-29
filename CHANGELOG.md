@@ -39,7 +39,4 @@ All notable changes to this project will be documented in this file.
 ### Changes
 - Added ability to specify only service type id at command line and select plan id interactively
 - Added commandline options to Readme
-
-## v1.1.3
-### Changes
 - Updated README with command line options
