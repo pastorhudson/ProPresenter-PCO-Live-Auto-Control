@@ -40,7 +40,7 @@ jobs:
       if: matrix.os == 'windows-latest'
       run: |
         mv dist/main.exe ./PcoLive.exe
-        Compress-Archive -Path ./PcoLive.exe -DestinationPath PcoLive-windows.zip
+        Compress-Archive -Path ./ -DestinationPath PcoLive-windows.zip
       working-directory: ${{github.workspace}}
 
     - name: Package macOS Artifact
@@ -56,7 +56,7 @@ jobs:
         ls -l dist
         mv dist/main ./PcoLive
         ls -l ./
-        tar -czvf PcoLive-Linux.tar.gz -C ./PcoLive
+        tar -czvf PcoLive-Linux.tar.gz -C ./
       working-directory: ${{github.workspace}}
 
     - name: Upload Artifact
