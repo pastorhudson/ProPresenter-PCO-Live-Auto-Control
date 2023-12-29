@@ -82,16 +82,13 @@ jobs:
       run: ls -l artifacts/artifact-windows-latest/dist
 
 
-    - name: Unzip Windows Artifact
-      run: unzip artifacts/artifact-windows-latest.zip -d windows_artifact
-
     - name: Upload Windows Artifact to Release
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.MY_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./windows_artifact/dist/PcoLive.exe
+        asset_path: ./artifacts/artifact-windows-latest/dist/PcoLive.exe
         asset_name: PcoLive-Windows.exe
         asset_content_type: application/octet-stream
 
