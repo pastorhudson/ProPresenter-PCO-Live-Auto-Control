@@ -39,14 +39,20 @@ jobs:
     - name: Package Windows Artifact
       if: matrix.os == 'windows-latest'
       run: |
-        mv dist/main.exe ./PcoLive.exe
-        Compress-Archive -Path ./ -DestinationPath PcoLive-windows.zip
+        mv dist/main.exe dist/PcoLive.exe
+        cp README.md dist/
+        cp LICENSE dist/
+        cp CHANGELOG.md dist/
+        Compress-Archive -Path ./dist -DestinationPath PcoLive-windows.zip
       working-directory: ${{github.workspace}}
 
     - name: Package macOS Artifact
       if: matrix.os == 'macos-latest'
       run: |
-        mv dist/main ./PcoLive
+        mv dist/main dist/PcoLive
+        cp README.md dist/
+        cp LICENSE dist/
+        cp CHANGELOG.md dist/
         zip -r PcoLive-macOS.zip ./PcoLive
       working-directory: ${{github.workspace}}
 
@@ -54,9 +60,12 @@ jobs:
       if: matrix.os == 'ubuntu-20.04'
       run: |
         ls -l dist
-        mv dist/main ./PcoLive
-        ls -l ./
-        tar -czvf PcoLive-Linux.tar.gz -C ./
+        mv dist/main dist/PcoLive
+        cp README.md dist/
+        cp LICENSE dist/
+        cp CHANGELOG.md dist/
+        ls -l dist
+        tar -czvf PcoLive-Linux.tar.gz -C ./ dist
       working-directory: ${{github.workspace}}
 
     - name: Upload Artifact
