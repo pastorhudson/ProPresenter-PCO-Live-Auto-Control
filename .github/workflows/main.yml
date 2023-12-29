@@ -94,7 +94,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.MY_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./artifacts/artifact-windows-latest/dist/PcoLive.exe
+        asset_path: ./artifacts/artifact-windows-latest/PcoLive-windows.zip
         asset_name: PcoLive-Windows.exe
         asset_content_type: application/octet-stream
 
