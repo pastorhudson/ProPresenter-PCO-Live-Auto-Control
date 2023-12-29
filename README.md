@@ -1,6 +1,4 @@
-![Ubuntu Build](https://github.com/pastorhudson/ProPresenter-PCO-Live-Auto-Control/actions/workflows/main.yml/badge.svg?branch=main&event=workflow_dispatch&label=ubuntu-build)
-![Windows Build](https://github.com/pastorhudson/ProPresenter-PCO-Live-Auto-Control/actions/workflows/main.yml/badge.svg?branch=main&event=workflow_dispatch&label=windows-build)
-![macOS Build](https://github.com/pastorhudson/ProPresenter-PCO-Live-Auto-Control/actions/workflows/main.yml/badge.svg?branch=main&event=workflow_dispatch&label=macos-build)
+[![Build and Release](https://github.com/pastorhudson/ProPresenter-PCO-Live-Auto-Control/actions/workflows/main.yml/badge.svg)](https://github.com/pastorhudson/ProPresenter-PCO-Live-Auto-Control/actions/workflows/main.yml)
 # ProPresenter-PCO-Live-Auto-Control
 ### What is this?
 Planning Center Services has a feature called "Live". This feature lets you click through the items in the plan and the production team can see where they are at in the service flow.
