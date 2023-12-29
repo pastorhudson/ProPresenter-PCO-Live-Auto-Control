@@ -43,7 +43,8 @@ jobs:
         cp README.md dist/
         cp LICENSE dist/
         cp CHANGELOG.md dist/
-        Compress-Archive -Path ./dist -DestinationPath PcoLive-windows.zip
+        mv dist PcoLive
+        Compress-Archive -Path ./PcoLive -DestinationPath PcoLive-windows.zip
       working-directory: ${{github.workspace}}
 
     - name: Package macOS Artifact
@@ -53,6 +54,7 @@ jobs:
         cp README.md dist/
         cp LICENSE dist/
         cp CHANGELOG.md dist/
+        mv dist PcoLive
         zip -r PcoLive-macOS.zip ./PcoLive
       working-directory: ${{github.workspace}}
 
@@ -65,7 +67,8 @@ jobs:
         cp LICENSE dist/
         cp CHANGELOG.md dist/
         ls -l dist
-        tar -czvf PcoLive-Linux.tar.gz -C ./ dist
+        mv dist PcoLive
+        tar -czvf PcoLive-Linux.tar.gz -C ./ PcoLive
       working-directory: ${{github.workspace}}
 
     - name: Upload Artifact
