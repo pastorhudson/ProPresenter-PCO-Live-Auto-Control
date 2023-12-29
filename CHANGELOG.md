@@ -20,3 +20,5 @@ All notable changes to this project will be documented in this file.
 ## v1.0.2
 ### Changes
  - Added descriptive error when the Planning Center API keys are not working.
+ - Added Readme, Liscence, and Changelog to the release downloads
+ - Changed folder from dist to PcoLive for the release archives
