@@ -78,8 +78,6 @@ jobs:
       with:
         path: artifacts
 
-      # Add steps to unzip artifacts here
-      # Example for Windows:
     - name: Unzip Windows Artifact
       run: unzip artifacts/artifact-windows-latest.zip -d windows_artifact
 
