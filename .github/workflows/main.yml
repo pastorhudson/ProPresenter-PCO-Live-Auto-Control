@@ -53,7 +53,9 @@ jobs:
     - name: Package Linux Artifact
       if: matrix.os == 'ubuntu-20.04'
       run: |
+        ls -l dist
         mv dist/main ./PcoLive
+        ls -l ./
         tar -czvf PcoLive-Linux.tar.gz -C ./PcoLive
       working-directory: ${{github.workspace}}
 
