@@ -36,14 +36,9 @@ jobs:
       - name: Build with PyInstaller for macOS
         if: matrix.os == 'macos-latest'
         run: |
-               find /opt/ -name 'libintl.8.dylib'
-          #        brew update
-          #        brew upgrade
-          #        find /opt/ -name 'libintl.8.dylib'
-          #        brew install gettext
-          #        find /opt/ -name 'libintl.8.dylib'
-          #        pyinstaller --onefile --add-binary='/usr/local/libodep/lib/libintl.8.dylib:.' ./src/main.py
-               pyinstaller --onefile ./src/main.py
+          find /opt/ -name 'libintl.8.dylib'
+          pyinstaller --onefile ./src/main.py
+
       - name: Build with PyInstaller for Windows and Linux
         if: matrix.os != 'macos-latest'
         run: pyinstaller --onefile ./src/main.py
