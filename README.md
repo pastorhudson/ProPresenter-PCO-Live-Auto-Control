@@ -21,3 +21,10 @@ pro_presenter_port = 50001
 - Run pco_live_control.exe on windows or pco_live_control on mac
 - Select the service type
 - Select the plan
+
+#### Build & Release
+Commit Message Patterns: 
+
+    fix: or patch: for patch releases (increments the PATCH in MAJOR.MINOR.PATCH).
+    feat: for minor releases (increments the MINOR).
+    Keywords like BREAKING CHANGE: or major: for major releases (increments the MAJOR).
