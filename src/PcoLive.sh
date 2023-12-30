@@ -12,7 +12,7 @@ EXTRACTED_DIR=""
 VENV_DIR="./.venv"
 
 # Check for the existing extracted directory
-EXTRACTED_DIR=$(find . -maxdepth 1 -type d -name "${REPO_OWNER}-${REPO_NAME}-*" -printf '%T@ %p\n' | sort -k1,1nr | head -n 1 | cut -f2- -d" ")
+EXTRACTED_DIR=$(ls -dt ./"${REPO_OWNER}-${REPO_NAME}-"*/ | head -n 1)
 
 if [ -z "$EXTRACTED_DIR" ]; then
     # Fetch the latest release tarball URL if no extracted directory exists
@@ -32,7 +32,7 @@ if [ -z "$EXTRACTED_DIR" ]; then
     rm latest_release.tar.gz
 
     # Find the extracted directory again after extraction
-    EXTRACTED_DIR=$(find . -maxdepth 1 -type d -name "${REPO_OWNER}-${REPO_NAME}-*" -printf '%T@ %p\n' | sort -k1,1nr | head -n 1 | cut -f2- -d" ")
+    EXTRACTED_DIR=$(ls -dt ./"${REPO_OWNER}-${REPO_NAME}-"*/ | head -n 1)
 
     # Check if the extracted directory is found
     if [ -z "$EXTRACTED_DIR" ]; then
