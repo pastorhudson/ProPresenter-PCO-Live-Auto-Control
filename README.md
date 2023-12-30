@@ -12,8 +12,13 @@ This script watches ProPresenter and automatically advances Planning Center Live
 
 
 ### Download
-- #### The latest download is always [here](https://github.com/pastorhudson/ProPresenter-PCO-Live-Auto-Control/releases/latest)
+- #### The latest binary download is always [here](https://github.com/pastorhudson/ProPresenter-PCO-Live-Auto-Control/releases/latest)
 - #### You can see the changelog [here](https://github.com/pastorhudson/ProPresenter-PCO-Live-Auto-Control/blob/v1.1.2/CHANGELOG.md)
+- #### Or you can build and run with your locally installed python:
+    ```bash
+    curl -O https://raw.githubusercontent.com/pastorhudson/ProPresenter-PCO-Live-Auto-Control/main/src/PcoLive.sh && chmod +x PcoLive.sh && ./PcoLive.sh -t
+    ```
+  Once you get "Success" then you can run `PcoLive.sh` with other command line options listed below.
 
 ### Setup
 
