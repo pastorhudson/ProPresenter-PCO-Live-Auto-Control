@@ -33,7 +33,7 @@ def pick_service_type():
     return selected_service_type_id
 
 
-def pick_plan_id(service_type_id):
+def pick_plan_id(service_type_id, next=False):
     try:
         pco = get_pco()
     except Exception as e:
@@ -48,6 +48,11 @@ def pick_plan_id(service_type_id):
                                f'{plan["data"]["attributes"]["title"]} - {plan["data"]["attributes"]["dates"]}'))
         else:
             plans_list.append((plan['data']["id"], plan['data']['attributes']["dates"]))
+
+    if next:
+        if next:
+            logger.info(f"Autoselected: {plans_list[0][0]} - {plans_list[0][1]}")
+            return plans_list[0][0]
 
     for i, (plan_id, plan_name) in enumerate(plans_list):
         print(f"{i + 1}. {plan_name}")
@@ -133,6 +138,8 @@ def get_current_live_status(service_type_id, plan_id, display=False):
 
 
 def get_index(service_type_id, plan_id):
+    if plan_id == 'next':
+        plan_id = pick_plan_id(service_type_id, plan_id)
     pco = get_pco()
     index = 0
     while True:

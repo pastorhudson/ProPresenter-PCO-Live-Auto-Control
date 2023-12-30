@@ -44,3 +44,9 @@ All notable changes to this project will be documented in this file.
 ## v1.1.3
 ### Changes
 - Security Fix
+
+## v1.1.4
+### Changes
+- Added PcoLive.sh to Mac and Linux release. PcoLive.sh will download source and build python virtual environment and run the python script on most Linux environments. This is useful for when the binary files don't work on your environment. Or for use in automations like Node-Red.
+- The same command line options work with PcoLive.sh as the regular python script.
+- Added `-p next` option. When a service type is specified `-p next` will automatically pick the next plan for that service type.
