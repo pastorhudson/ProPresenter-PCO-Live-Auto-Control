@@ -86,9 +86,9 @@ PcoLive [options]
    ```
 
 3. **Specify Only Service Type ID (with plan selection happening interactively):**  
-```bash
-PcoLive --service_type_id 12345
-```
+   ```bash
+   PcoLive --service_type_id 12345
+   ```
 
 4. **Specify Both Service Type and Plan IDs:**  
    ```bash
