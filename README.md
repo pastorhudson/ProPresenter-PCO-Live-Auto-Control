@@ -79,22 +79,27 @@ PcoLive [options]
    ```bash
    PcoLive --test
    ```
+   
+1. **Run in Interactive Mode:**  
+   ```bash
+   PcoLive
+   ```
 
-2. **Specify Both Service Type and Plan IDs:**  
+3. **Specify Both Service Type and Plan IDs:**  
    ```bash
    PcoLive --service_type_id 12345 --plan_id 67890
    ```
 
-3. **Specify Only Service Type ID (with plan selection happening interactively):**  
+4. **Specify Only Service Type ID (with plan selection happening interactively):**  
    ```bash
    PcoLive --service_type_id 12345
    ```
 
-4. **Specify Only Plan ID (a service type ID must be provided.):**  
+5. **Specify Only Plan ID (a service type ID must be provided.):**  
    ```bash
    PcoLive --service_type_id 12345 --plan_id 67890
    ```
-5. **Auto Select Next Plan ID (a service type ID must be provided.):**  
+6. **Auto Select Next Plan ID (a service type ID must be provided.):**  
    ```bash
    PcoLive --service_type_id 12345 --plan_id next
    ```
