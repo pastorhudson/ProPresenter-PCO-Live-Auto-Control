@@ -54,3 +54,7 @@ All notable changes to this project will be documented in this file.
 ## v1.1.5
 ### Changes
 - Changed the way PcoLive.sh finds the directory to be compatible with busybox environments.
+
+## v1.1.6
+### Changes
+- Fixed a bug that occurred when dragging media onto a planning center item.
