@@ -37,6 +37,5 @@ def main():
         logger.error("Please Check your Planning Center API keys are correct in the config.ini")
 
 
-
 if __name__ == "__main__":
     main()

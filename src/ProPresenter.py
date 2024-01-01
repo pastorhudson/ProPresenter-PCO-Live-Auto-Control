@@ -34,14 +34,43 @@ async def get_current_index():
                 except Exception as e:
                     date = data['presentation']['playlist']['name']
 
+                if data['presentation']['item']['index'] != 4294967295:
+                    sequence = data['presentation']['item']['index']
+
+                else:
+
+                    sequence = await get_index_by_name(data['presentation']['item']['name'], data['presentation']['playlist']['index'])
+
                 status = {
-                    "sequence": data['presentation']['item']['index'],
+                    "sequence": sequence,
                     "name": data['presentation']['item']['name'],
                     "playlist_name": data['presentation']['playlist']['name'],
+                    "playlist_index": data['presentation']['playlist']['index'],
                     "date": date
                 }
+        return status
 
-                return status
+    except ConnectionRefusedError as e:
+        logger.info("Connection Refused Check ProPresenter")
+        return None
+    except Exception as e:
+        return None
+
+
+async def get_index_by_name(name, index):
+    ip, port = get_propresenter_config()
+    url = f"http://{ip}:{port}/v1/playlist/{index}"
+    try:
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url) as response:
+                data = await response.json()
+
+                items = data['items']
+                for item in items:
+                    if item['id']['name'] == name and item['is_pco']:
+                        return item['id']['index']
+
+        return None
 
     except ConnectionRefusedError as e:
         logger.info("Connection Refused Check ProPresenter")
@@ -51,4 +80,6 @@ async def get_current_index():
 
 
 # if __name__ == "__main__":
-#     print(asyncio.run(get_current_index()))
+#     while True:
+        # print(asyncio.run(get_index_by_name("EagleEye in the sky", '4')))
+        # print(asyncio.run(get_current_index()))

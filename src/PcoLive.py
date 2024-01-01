@@ -144,10 +144,12 @@ def get_index(service_type_id, plan_id):
     index = 0
     while True:
         pco_live_status = get_current_live_status(service_type_id, plan_id)
-        # print(pco_live_status)
 
         pro_presenter_status = asyncio.run(get_current_index())
+
         if pro_presenter_status:
+            if pro_presenter_status['sequence'] == "4294967295":
+                continue
 
             if pco_live_status["sequence"] == pro_presenter_status['sequence'] and pco_live_status["date"] == \
                     pro_presenter_status['date']:
@@ -156,7 +158,9 @@ def get_index(service_type_id, plan_id):
                 logger.info("PCO and ProPresenter are not in sync.")
                 logger.info(f"PCO: {pco_live_status['sequence']}, ProPresenter: {pro_presenter_status['sequence']}")
                 try:
+
                     index = pro_presenter_status['sequence'] - pco_live_status['sequence']
+
                 except Exception as e:
                     logger.error(e)
                 if index < 0:
@@ -165,16 +169,15 @@ def get_index(service_type_id, plan_id):
                 else:
                     logger.info(f"{pro_presenter_status['sequence'] - pco_live_status['sequence']} - Click Forward")
                     pco.post(f'/services/v2/service_types/{service_type_id}/plans/{plan_id}/live/go_to_next_item')
-                # print(pro_presenter_status['sequence'] - pco_live_status['sequence'])
 
         else:
-            logger.info("Pro Presenter is Clear")
+            logger.info("Pro Presenter is clear or showing something not in Planning Center Plan")
 
 
-# if __name__ == '__main__':
-#     try:
-#         config = choose_live()
-#         atexit.register(exit_handler, config['service_type_id'], config['plan_id'])
-#         get_index(config['service_type_id'], config['plan_id'])
-#     except KeyboardInterrupt:
-#         logger.info("Thanks for using this recipe. Check out more recipes at https://pcochef.com")
+if __name__ == '__main__':
+    try:
+        config = choose_live()
+        atexit.register(exit_handler, config['service_type_id'], config['plan_id'])
+        get_index(config['service_type_id'], config['plan_id'])
+    except KeyboardInterrupt:
+        logger.info("Thanks for using this recipe. Check out more recipes at https://pcochef.com")
