@@ -16,6 +16,6 @@ pyinstaller-hooks-contrib==2023.11
 pypco==1.2.0
 pywin32-ctypes==0.2.2
 requests==2.32.2
-setuptools==69.0.3
+setuptools==70.0.0
 urllib3==2.2.2
 yarl==1.9.4
